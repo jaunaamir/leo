@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latest Updates</title>
+    <style>
+        @font-face {
+            font-family: 'Jameel Noori Nastaleeq';
+            src: url('path/to/JameelNooriNastaleeq.ttf') format('truetype');
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+            direction: ltr;
+            text-align: left;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .form-container {
+            flex: 1;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-right: 20px;
+        }
+
+        .update-container {
+            flex: 2;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .update-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .update-form input,
+        .update-form textarea,
+        .update-form select {
+            margin-bottom: 10px;
+            padding: 10px;
+            font-family: Arial, sans-serif;
+        }
+
+        .update-form button {
+            padding: 10px;
+            background-color: #25d366;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .update-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .update-item {
+            background-color: white;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .update-date {
+            color: #999999;
+            font-size: 0.9em;
+        }
+
+        .delete-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #ff0000;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h1>New Update</h1>
+            <form class="update-form" onsubmit="addUpdate(event)">
+                <input type="text" id="title" placeholder="Enter title">
+                <input type="text" id="name" placeholder="Enter your name">
+                <input type="text" id="designation" placeholder="Enter your designation">
+                <input type="date" id="arrivalDate" placeholder="Enter date">
+                <input type="time" id="timeIn" placeholder="Enter time in office">
+                <input type="time" id="timeOut" placeholder="Enter time out from office">
+                <select id="status">
+                    <option value="">Select status</option>
+                    <option value="In Office">In Office</option>
+                    <option value="Out">Out</option>
+                </select>
+                <textarea id="updateText" placeholder="Enter your update"></textarea>
+                <button type="submit">Add Update</button>
+            </form>
+        </div>
+        <div class="update-container">
+            <h1>Latest Updates</h1>
+            <ul class="update-list" id="updateList"></ul>
+        </div>
+    </div>
+
+    <script>
+        function addUpdate(event) {
+            event.preventDefault();
+
+            var title = document.getElementById('title').value || 'N/A';
+            var name = document.getElementById('name').value || 'N/A';
+            var designation = document.getElementById('designation').value || 'N/A';
+            var arrivalDate = document.getElementById('arrivalDate').value || 'N/A';
+            var timeIn = document.getElementById('timeIn').value || 'N/A';
+            var timeOut = document.getElementById('timeOut').value || 'N/A';
+            var status = document.getElementById('status').value || 'N/A';
+            var updateText = document.getElementById('updateText').value || 'N/A';
+            var updateList = document.getElementById('updateList');
+
+            var updateItem = document.createElement('li');
+            updateItem.className = 'update-item';
+
+            var updateDate = new Date();
+            var dateString = updateDate.toLocaleString();
+
+            updateItem.innerHTML = `
+                <p><strong>Title:</strong> ${title}</p>
+                <p><strong>Name:</strong> ${name}</p>
+                <p><strong>Designation:</strong> ${designation}</p>
+                <p><strong>Date:</strong> ${arrivalDate}</p>
+                <p><strong>In-Office:</strong> ${timeIn}</p>
+                <p><strong>Out of office:</strong> ${timeOut}</p>
+                <p><strong>Status:</strong> ${status}</p>
+                <p>${updateText}</p>
+                <p class="update-date">${dateString}</p>
+                <button class="delete-button" onclick="deleteUpdate(this)">Delete</button>
+            `;
+
+            updateList.appendChild(updateItem);
+
+            document.getElementById('title').value = '';
+            document.getElementById('name').value = '';
+            document.getElementById('designation').value = '';
+            document.getElementById('arrivalDate').value = '';
+            document.getElementById('timeIn').value = '';
+            document.getElementById('timeOut').value = '';
+            document.getElementById('status').value = '';
+            document.getElementById('updateText').value = '';
+        }
+
+        function deleteUpdate(button) {
+            var updateItem = button.parentNode;
+            updateItem.parentNode.removeChild(updateItem);
+        }
+    </script>
+</body>
+</html>

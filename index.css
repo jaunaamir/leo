@@ -1,0 +1,60 @@
+@font-face {
+    font-family: 'Jameel Noori Nastaleeq';
+    src: url('path/to/JameelNooriNastaleeq.ttf') format('truetype');
+}
+
+body {
+    font-family: 'Jameel Noori Nastaleeq', Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 20px;
+    direction: rtl;
+    text-align: right;
+}
+
+h1 {
+    color: #333333;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+h2 {
+    color: #555555;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h3 {
+    color: #777777;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+h4 {
+    color: #999999;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+a {
+    display: block;
+    color: #0000ff;
+    text-decoration: none;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 50px;
+}
+
+a:hover {
+    color: #ff0000;
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
+    h1, h2, h3, h4, a {
+        font-size: smaller;
+    }
+}
