@@ -61,18 +61,13 @@
     <div class="form-container">
         <h1>New Update</h1>
         <form class="update-form" onsubmit="addUpdate(event)">
-            <input type="text" id="title" placeholder="Enter title">
-            <input type="text" id="name" placeholder="Enter your name">
-            <input type="text" id="designation" placeholder="Enter your designation">
-            <input type="date" id="arrivalDate" placeholder="Enter date">
-            <input type="time" id="timeIn" placeholder="Enter time in office">
-            <input type="time" id="timeOut" placeholder="Enter time out from office">
+            <input type="text" id="name" placeholder="Enter your name" required>
             <select id="status">
                 <option value="">Select status</option>
                 <option value="In Office">In Office</option>
-                <option value="Out">Out</option>
+                <option value="Not In Office">Not In Office</option>
             </select>
-            <textarea id="updateText" placeholder="Enter your update"></textarea>
+            <textarea id="updateText" placeholder="Enter your note"></textarea>
             <button type="submit">Add Update</button>
         </form>
         <button class="nav-button" onclick="navigateToUpdates()">View Latest Updates</button>
@@ -86,12 +81,7 @@
 
             const update = {
                 id: Date.now().toString(),
-                title: document.getElementById("title").value || "N/A",
-                name: document.getElementById("name").value || "N/A",
-                designation: document.getElementById("designation").value || "N/A",
-                arrivalDate: document.getElementById("arrivalDate").value || "N/A",
-                timeIn: document.getElementById("timeIn").value || "N/A",
-                timeOut: document.getElementById("timeOut").value || "N/A",
+                name: document.getElementById("name").value,
                 status: document.getElementById("status").value || "N/A",
                 updateText: document.getElementById("updateText").value || "N/A",
                 date: new Date()
@@ -100,12 +90,8 @@
             updates.unshift(update);  // Add new update to the top
             localStorage.setItem("updates", JSON.stringify(updates));
 
-            document.getElementById("title").value = '';
+            // Clear form fields
             document.getElementById("name").value = '';
-            document.getElementById("designation").value = '';
-            document.getElementById("arrivalDate").value = '';
-            document.getElementById("timeIn").value = '';
-            document.getElementById("timeOut").value = '';
             document.getElementById("status").value = '';
             document.getElementById("updateText").value = '';
         }
