@@ -72,11 +72,19 @@
             border: none;
             cursor: pointer;
         }
+
+        .search-box {
+            margin-bottom: 20px;
+            padding: 10px;
+            width: calc(100% - 40px);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
 <body>
     <div class="update-container">
         <h1>Latest Updates</h1>
+        <input type="text" id="searchBox" class="search-box" placeholder="Search by name" oninput="searchUpdates()">
         <button class="delete-all-button" onclick="confirmDeleteAll()">Delete All Updates</button>
         <ul class="update-list" id="updateList"></ul>
         <button class="nav-button" onclick="navigateToForm()">Add New Update</button>
@@ -87,6 +95,10 @@
 
         function loadUpdates() {
             const updates = JSON.parse(localStorage.getItem("updates")) || [];
+            displayUpdates(updates);
+        }
+
+        function displayUpdates(updates) {
             const updateList = document.getElementById("updateList");
             updateList.innerHTML = "";
 
@@ -102,12 +114,7 @@
             const dateString = new Date(update.date).toLocaleString();
 
             updateItem.innerHTML = `
-                <p><strong>Title:</strong> ${update.title}</p>
                 <p><strong>Name:</strong> ${update.name}</p>
-                <p><strong>Designation:</strong> ${update.designation}</p>
-                <p><strong>Date:</strong> ${update.arrivalDate}</p>
-                <p><strong>In-Office:</strong> ${update.timeIn}</p>
-                <p><strong>Out of office:</strong> ${update.timeOut}</p>
                 <p><strong>Status:</strong> ${update.status}</p>
                 <p>${update.updateText}</p>
                 <p class="update-date">${dateString}</p>
@@ -143,6 +150,13 @@
 
         function navigateToForm() {
             window.location.href = 'update-form.html';
+        }
+
+        function searchUpdates() {
+            const searchQuery = document.getElementById("searchBox").value.toLowerCase();
+            const updates = JSON.parse(localStorage.getItem("updates")) || [];
+            const filteredUpdates = updates.filter(update => update.name.toLowerCase().includes(searchQuery));
+            displayUpdates(filteredUpdates);
         }
     </script>
 </body>
